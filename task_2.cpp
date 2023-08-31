@@ -1,10 +1,21 @@
 #include <iostream>
 using namespace std;
 
-void inputStrToDouble(string &whole, string &fraction)
+bool inputStrToDouble(string &whole, string &fraction)
 {
     cout << "Ввести целую и дробную часть числа через пробел: ";
     cin >> whole >> fraction;
+    for (int i = 0; i < whole.length(); i++)
+    {
+        if (!isdigit(whole[i]))
+            return false;
+    }
+    for (int i = 0; i < fraction.length(); i++)
+    {
+        if (!isdigit(fraction[i]))
+            return false;
+    }
+    return true;
 }
 void parseStrToDouble(string &whole, string &fraction, double &rez)
 {
@@ -20,7 +31,13 @@ int main()
     string &fraction = strFraction;
     double rez = 0.0;
     double &ptrRez = rez;
-    inputStrToDouble(whole, fraction);
-    parseStrToDouble(whole, fraction, ptrRez);
-    cout << "Введенное число типа double: " << rez << endl;
+    if (inputStrToDouble(whole, fraction))
+    {
+        parseStrToDouble(whole, fraction, ptrRez);
+        cout << "Введенное число типа double: " << rez << endl;
+    }
+    else
+    {
+        cout << "Введенные данные не являются числами!";
+    }
 }
